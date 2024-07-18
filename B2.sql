@@ -49,3 +49,28 @@ delimiter ;
 
 call insert_account('konta','123','VN',1);
 select * from accounts;
+
+
+-- show every bill detail with id
+delimiter //
+create procedure show_bill_detail(in bill_id1 int)
+begin
+select * from bill_detail
+where bill_detail.bill_id = bill_id1;
+end //
+delimiter ;
+
+drop procedure show_bill_detail;
+
+-- show every products which have been bought more than 5
+delimiter //
+create procedure show_products_more_than_st()
+begin
+select product.name, sum(bill_detail.quantity) from product
+join bill_detail on bill_detail.product_id = product.id
+group by product.name
+having sum(bill_detail.quantity) > 5;
+end //
+delimiter ;
+
+call show_products_more_than_st();
