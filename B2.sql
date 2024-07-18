@@ -62,6 +62,25 @@ delimiter ;
 
 drop procedure show_bill_detail;
 
+-- out the unknow details where bill detail id = id
+delimiter //
+CREATE PROCEDURE add_new_bill(
+    IN p_bill_type BIT,
+    IN p_acc_id INT,
+    IN p_created DATETIME,
+    IN p_auth_date DATETIME,
+    OUT p_bill_id INT
+)
+BEGIN
+    -- Insert a new bill into the bill table
+    INSERT INTO bill (bill_type, acc_id, created, auth_date)
+    VALUES (p_bill_type, p_acc_id, p_created, p_auth_date);
+    
+    -- Get the last inserted bill_id
+    SET p_bill_id = LAST_INSERT_ID();
+END //
+delimiter ;
+
 -- show every products which have been bought more than 5
 delimiter //
 create procedure show_products_more_than_st()
