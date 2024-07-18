@@ -81,6 +81,9 @@ BEGIN
 END //
 delimiter ;
 
+CALL add_new_bill(0, 1, '2024-07-18 12:00:00', '2024-07-18 12:30:00', @new_bill_id);
+SELECT @new_bill_id;
+
 -- show every products which have been bought more than 5
 delimiter //
 create procedure show_products_more_than_st()
